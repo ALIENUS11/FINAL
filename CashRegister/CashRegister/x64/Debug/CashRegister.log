@@ -1,0 +1,35 @@
+﻿  Reading Qt configuration (D:/qt5.12.2/qt/5.12.2/msvc2017_64/bin/qmake)
+  uic CashLogWidget.ui
+  uic CashRegister.ui
+  uic CheckoutWidget.ui
+  uic InventoryWidget.ui
+  uic TakePhoto.ui
+  rcc CashRegister.qrc
+  moc CashRegister.h
+  moc MyDataBase.h
+  moc SerialPortManager.h
+  moc InventoryWidget.h
+  moc InputDialog.h
+  moc CheckoutWidget.h
+  moc SpinBoxDelegate.h
+  moc CashLogWidget.h
+  CashLogWidget.cpp
+  CheckoutWidget.cpp
+  InventoryWidget.cpp
+  MyDataBase.cpp
+  SerialPortManager.cpp
+  SpinBoxDelegate.cpp
+  CashRegister.cpp
+  main.cpp
+  qrc_CashRegister.cpp
+  moc_CashRegister.cpp
+  moc_MyDataBase.cpp
+  moc_SerialPortManager.cpp
+  moc_InventoryWidget.cpp
+  moc_InputDialog.cpp
+  moc_CheckoutWidget.cpp
+  moc_SpinBoxDelegate.cpp
+  moc_CashLogWidget.cpp
+  CashRegister.vcxproj -> C:\Users\armstrong\Desktop\CashRegister\x64\Debug\CashRegister.exe
+  'pwsh.exe' 不是内部或外部命令，也不是可运行的程序
+  或批处理文件。
