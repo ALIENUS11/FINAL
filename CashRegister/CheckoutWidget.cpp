@@ -44,12 +44,21 @@ CheckoutWidget::CheckoutWidget(QWidget* parent)
 		{
 			if (ui->tableWidget->rowCount() > 0)
 			{
-				UpdateStock();
-				//保存出售记录
+				if (!CheckStockAvailability()) // 检查库存
+					return; // 库存不足，终止结算
+
+				UpdateStock(); // 此时库存已确认足够
+
+				// 保存出售记录
 				for (int i = 0; i < ui->tableWidget->rowCount(); i++)
 				{
-					MyDataBase::GetInstance().AddSellRecord(ui->tableWidget->item(i, 0)->text(), ui->tableWidget->item(i, 3)->text().toInt(), ui->tableWidget->item(i, 4)->text().toDouble());
+					MyDataBase::GetInstance().AddSellRecord(
+						ui->tableWidget->item(i, 0)->text(),
+						ui->tableWidget->item(i, 3)->text().toInt(),
+						ui->tableWidget->item(i, 4)->text().toDouble()
+					);
 				}
+
 				QMessageBox::information(this, QStringLiteral("提示"), QStringLiteral("出库成功"));
 				Clear();
 				emit CheckoutFinished();
@@ -95,10 +104,15 @@ void CheckoutWidget::Calculate()
 
 void CheckoutWidget::UpdateStock()
 {
+	if (!CheckStockAvailability()) // 先检查库存
+		return; // 库存不足，不执行更新
+
 	for (int i = 0; i < ui->tableWidget->rowCount(); i++)
 	{
-		MyDataBase::GetInstance().ReduceGoods(ui->tableWidget->item(i, 0)->text(), ui->tableWidget->item(i, 3
-		)->text().toInt());
+		MyDataBase::GetInstance().ReduceGoods(
+			ui->tableWidget->item(i, 0)->text(),
+			ui->tableWidget->item(i, 3)->text().toInt()
+		);
 	}
 }
 
@@ -144,3 +158,24 @@ void CheckoutWidget::OnDataReceived(const QByteArray& data)
 		QMessageBox::information(this, QStringLiteral("错误"), QStringLiteral("仓库中不含有这种商品，请先入库!"));
 	}
 }
+
+bool CheckoutWidget::CheckStockAvailability()
+{
+	for (int i = 0; i < ui->tableWidget->rowCount(); i++)
+	{
+		QString barCode = ui->tableWidget->item(i, 0)->text();
+		int requestedQuantity = ui->tableWidget->item(i, 3)->text().toInt();
+		int currentStock = MyDataBase::GetInstance().GetGoodsQuantity(barCode);
+
+		if (currentStock < requestedQuantity)
+		{
+			QString goodsName = MyDataBase::GetInstance().GetGoodsName(barCode);
+			QMessageBox::warning(this, QStringLiteral("库存不足"),
+				QStringLiteral("商品 '%1' 库存不足，当前库存: %2，请求数量: %3")
+				.arg(goodsName).arg(currentStock).arg(requestedQuantity));
+			return false;
+		}
+	}
+	return true;
+}
+

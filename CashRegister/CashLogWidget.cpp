@@ -8,7 +8,7 @@ CashLogWidget::CashLogWidget(QWidget *parent)
 	
 	ui->tableWidget->setColumnCount(5);
 	QStringList header;
-	header << QStringLiteral("ID") << QStringLiteral("商品名称")<< QStringLiteral("出库日期") <<QStringLiteral("数量") << QStringLiteral("价格");
+	header << QStringLiteral("ID") << QStringLiteral("商品名称")<< QStringLiteral("数量") <<QStringLiteral("出库日期") << QStringLiteral("价格");
 	ui->tableWidget->setHorizontalHeaderLabels(header);
 	
 	Load();

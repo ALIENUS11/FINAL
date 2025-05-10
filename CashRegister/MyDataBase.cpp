@@ -160,3 +160,18 @@ QList<Good> MyDataBase::GetGoods()
     return list;
 }
 
+int MyDataBase::GetGoodsQuantity(const QString& barCode)
+{
+    QSqlQuery query;
+    if (!query.exec(QString("SELECT quantity FROM goods WHERE barcode = '%1'").arg(barCode)))
+    {
+        emit error(query.lastError().text());
+        return 0;
+    }
+    if (query.next())
+    {
+        return query.value(0).toInt();
+    }
+    return 0;
+}
+

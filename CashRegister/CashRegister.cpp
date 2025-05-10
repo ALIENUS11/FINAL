@@ -17,7 +17,7 @@ CashRegister::CashRegister(QWidget *parent)
     , ui(new Ui::CashRegisterClass()),p(new CashRegisterPrivate)
 {
     ui->setupUi(this);
-    this->setWindowTitle(QStringLiteral("智能仓储系统"));
+    this->setWindowTitle(QStringLiteral("仓储管理系统"));
     setWindowIcon(QIcon(":/image/icon.png"));
     //清空默认的
     ui->stackedWidget->removeWidget(ui->page);
@@ -55,7 +55,7 @@ CashRegister::CashRegister(QWidget *parent)
 
     connect(SerialPortManager::getInstance(), &SerialPortManager::dataReceived, p->inventoryWidget, &InventoryWidget::OnDataReceived);
 
-    if (SerialPortManager::getInstance()->openSerialPort("COM3"))
+    if (SerialPortManager::getInstance()->openSerialPort("COM5"))
     {
         ui->label_status->setText(QStringLiteral("已连接"));
     }

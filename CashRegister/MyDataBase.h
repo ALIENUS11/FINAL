@@ -48,6 +48,7 @@ public:
     QList<SellRecord> GetSellRecord();
     //获取库存信息
     QList<Good> GetGoods();
+    int GetGoodsQuantity(const QString& barCode);
 signals:
     void error(const QString &error);
 private:

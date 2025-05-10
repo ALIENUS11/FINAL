@@ -7,6 +7,7 @@ QT_BEGIN_NAMESPACE
 namespace Ui { class CheckoutWidgetClass; };
 QT_END_NAMESPACE
 
+
 class CheckoutWidget : public QWidget
 {
 	Q_OBJECT
@@ -20,6 +21,9 @@ public:
 	void UpdateStock();
 	//清空
 	void Clear();
+
+	bool CheckStockAvailability();
+
 signals:
 	void CheckoutFinished();
 public slots:
